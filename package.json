@@ -26,7 +26,6 @@
     "jest-cli": "^21.0.0"
   },
   "scripts": {
-    "prepublish": "nsp check",
     "pretest": "eslint . --fix",
     "test": "jest"
   },
