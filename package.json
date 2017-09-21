@@ -1,0 +1,49 @@
+{
+  "name": "robots-parse",
+  "version": "0.0.1",
+  "description": "A lightweight and simple robots.txt parser in node.",
+  "homepage": "",
+  "author": {
+    "name": "b4dnewz",
+    "email": "filippo@codekraft.it",
+    "url": ""
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    "cli-tool",
+    "parser",
+    "osint"
+  ],
+  "devDependencies": {
+    "coveralls": "^2.13.1",
+    "nsp": "^2.6.3",
+    "eslint": "^4.1.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "jest": "^21.0.0",
+    "jest-cli": "^21.0.0"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint . --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "jest": true,
+      "node": true
+    }
+  },
+  "repository": "b4dnewz/robots-parse",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "async": "^2.5.0",
+    "request": "^2.82.0"
+  }
+}
