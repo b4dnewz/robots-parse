@@ -1,5 +1,7 @@
-# robots-parse 
+# robots-parse
+
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+
 > A lightweight and simple robots.txt parser in node.
 
 ## Installation
@@ -9,18 +11,28 @@ $ npm install --save robots-parse
 ```
 
 ## Usage
+By default the script will get and parse the `robots.txt` file for a given website or domain and it will search for various rules:
+* __Agents__: A user-agent identifies a specific spider. The user-agent field is matched against that specific spider’s (usually longer) user-agent.
+* __Host__: Supported by Yandex (and not by Google even though some posts say it does), this directive lets you decide whether you want the search engine to show.
+* __Allow__: The allow directive specifies paths that may be accessed by the designated crawlers. When no path is specified, the directive is ignored.
+* __Disallow__: The disallow directive specifies paths that must not be accessed by the designated crawlers. When no path is specified, the directive is ignored.
+* __Sitemap__: An absolute url that points to a Sitemap, Sitemap Index file or equivalent URL.
 
+It returns, _if the robots files were successfully retrieved and parsed_, an object containing the properties mentioned above, inside every agent found you will find agent-specific __allow__ and __disallow__ rules, which also will be stored in __allow__ and __disallow__  root properties containing all of them indistinctly.
+
+You can use the module in your code following the example below:
 ```js
 const robotsParse = require('robots-parse');
 
 robotsParse('github.com', options, (err, result) => {
   console.log('Result:', result);
 });
-
 ```
+You can read more about the specifications of the robots file on it's [Google Reference Page](https://developers.google.com/search/reference/robots_txt).
+
 ## License
 
-Apache-2.0 © [b4dnewz]()
+Apache-2.0 © [b4dnewz](https://b4dnewz.github.io/)
 
 
 [npm-image]: https://badge.fury.io/js/robots-parse.svg

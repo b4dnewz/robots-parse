@@ -6,7 +6,7 @@
   "author": {
     "name": "b4dnewz",
     "email": "filippo@codekraft.it",
-    "url": ""
+    "url": "https://b4dnewz.github.io/"
   },
   "files": [
     "lib"
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "pretest": "eslint . --fix",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "eslintConfig": {
     "extends": "xo-space",
