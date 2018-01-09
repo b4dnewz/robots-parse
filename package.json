@@ -2,7 +2,7 @@
   "name": "robots-parse",
   "version": "0.0.3",
   "description": "A lightweight and simple robots.txt parser in node.",
-  "homepage": "",
+  "homepage": "https://github.com/b4dnewz/robots-parse",
   "author": {
     "name": "b4dnewz",
     "email": "filippo@codekraft.it",
