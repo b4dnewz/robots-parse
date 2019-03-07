@@ -12,37 +12,39 @@
     "lib"
   ],
   "main": "lib/index.js",
+  "license": "Apache-2.0",
   "keywords": [
     "cli-tool",
     "parser",
     "osint"
   ],
+  "dependencies": {
+    "follow-redirects": "^1.7.0"
+  },
   "devDependencies": {
-    "coveralls": "^2.13.1",
-    "nsp": "^2.6.3",
-    "eslint": "^4.1.0",
-    "eslint-config-xo-space": "^0.16.0",
-    "jest": "^21.0.0",
-    "jest-cli": "^21.0.0"
+    "coveralls": "^3.0.3",
+    "eslint": "^5.15.1",
+    "jest": "^24.1.0",
+    "jest-cli": "^24.1.0"
   },
   "scripts": {
-    "pretest": "eslint . --fix",
+    "pretest": "npm run lint",
+    "lint": "eslint . --fix",
     "test": "jest --coverage"
   },
   "eslintConfig": {
-    "extends": "xo-space",
+    "extends": "eslint:recommended",
     "env": {
+      "es6": true,
       "jest": true,
       "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 6
     }
   },
   "repository": "b4dnewz/robots-parse",
   "jest": {
     "testEnvironment": "node"
-  },
-  "license": "Apache-2.0",
-  "dependencies": {
-    "async": "^2.5.0",
-    "request": "^2.82.0"
   }
 }
