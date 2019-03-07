@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
-const parser = require('../parser');
+const parser = require('../lib/parser');
 
 const testFile = fs.readFileSync(path.join(__dirname, 'robots.txt'), 'utf-8');
 
