@@ -30,12 +30,12 @@ You can also use it with __promises__ if the callback is not specified:
 const robotsParse = require('robots-parse');
 
 (async () => {
-  const res = robotsParse('github.com');
+  const res = await robotsParse('github.com');
   console.log('Result:', res);
 })().catch(console.log)
 ```
 
-Or you can use the built-in parser to parse an existing robots.txt file, for example a **local file** or a **string**. The parser __is sync__ so you don't have to use callback or promises.
+Or you can use the built-in parser to parse an existing robots.txt file, for example a **local file** or a **string**. The parser works __in sync__ so you don't have to use callback or promises.
 
 ```js
 const {parser} = require('robots-parse');
