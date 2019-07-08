@@ -21,4 +21,13 @@ describe('robotsParse test suite', () => {
       })
       .catch(done);
   });
+
+  it('support https protocol', (done) => {
+    robotsParse('https://www.w3.org')
+      .then(res => {
+        expect(typeof res).toEqual('object');
+        done()
+      })
+      .catch(done);
+  });
 });
