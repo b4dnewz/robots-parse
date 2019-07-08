@@ -30,4 +30,12 @@ describe('robotsParse test suite', () => {
       })
       .catch(done);
   });
+
+  it('return error when request fails', (done) => {
+    robotsParse('example.com', (err, res) => {
+      expect(err).toBeDefined()
+      expect(res).not.toBeDefined()
+      done()
+    })
+  })
 });
