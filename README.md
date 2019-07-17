@@ -9,7 +9,7 @@
 ## Installation
 
 ```
-npm install --save robots-parse
+npm install robots-parse
 ```
 
 ## Usage
@@ -27,12 +27,12 @@ robotsParse('github.com', (err, res) => {
 You can also use it with __promises__ if the callback is not specified:
 
 ```js
-const robotsParse = require('robots-parse');
+import robotsParse from 'robots-parse'
 
 (async () => {
   const res = await robotsParse('github.com');
   console.log('Result:', res);
-})().catch(console.log)
+})().catch(console.error)
 ```
 
 Or you can use the built-in parser to parse an existing robots.txt file, for example a **local file** or a **string**. The parser works __in sync__ so you don't have to use callback or promises.
@@ -49,7 +49,8 @@ request('google.com/robots.txt', (err, res, body) => {
 Parsing an existing local robots.txt file:
 
 ```js
-const {parser} = require('robots-parse');
+import {parser} from 'robots-parse'
+
 const content = fs.readFileSync('./robots.txt', 'utf-8');
 const object = parser(content);
 
@@ -84,7 +85,7 @@ You can read more about the specifications of the robots file on it's [Google Re
 
 ## License
 
-Apache-2.0 © [b4dnewz](https://b4dnewz.github.io/)
+MIT © [b4dnewz](https://b4dnewz.github.io/)
 
 [npm-image]: https://badge.fury.io/js/robots-parse.svg
 
