@@ -2,34 +2,47 @@ const patterns = {
   agents: /([Uu]ser-agent:) (.+)/,
   allow: /([Aa]llow:) (\/.+)/,
   disallow: /([Dd]isallow:) (\/.+)/,
+  host: /([Hh]ost:) (.+)/,
   sitemaps: /([Ss]itemap:) (.+)/,
-  host: /([Hh]ost:) (.+)/
 };
 
-module.exports = body => {
-  const results = {
+export interface ParserResult {
+  agents: {
+    [key: string]: {
+      allow: string[],
+      disallow: string[],
+    },
+  };
+  allow: string[];
+  disallow: string[];
+  sitemaps: string[];
+  host: string;
+}
+
+export function parser(body: string) {
+  const results: ParserResult = {
     agents: {},
     allow: [],
     disallow: [],
+    host: "",
     sitemaps: [],
-    host: ''
   };
 
   // Extract lines from body response
   const lines = body.match(/[^\r\n]+/g);
 
   // Default agent
-  let lastAgent = 'all';
+  let lastAgent = "all";
 
   // Loop through lines and check for patterns
-  lines.forEach(line => {
+  lines.forEach((line) => {
     // Check for agent rules
     if (patterns.agents.test(line)) {
       const matches = line.match(patterns.agents);
-      lastAgent = matches[2] === '*' ? 'all' : matches[2];
+      lastAgent = matches[2] === "*" ? "all" : matches[2];
       results.agents[lastAgent] = {
         allow: [],
-        disallow: []
+        disallow: [],
       };
     }
 
@@ -80,4 +93,4 @@ module.exports = body => {
   });
 
   return results;
-};
+}
