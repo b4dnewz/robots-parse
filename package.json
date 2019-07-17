@@ -1,7 +1,7 @@
 {
   "name": "robots-parse",
   "version": "0.0.6",
-  "description": "A lightweight and simple robots.txt parser in node.",
+  "description": "A lightweight and simple robots.txt parser in node",
   "homepage": "https://github.com/b4dnewz/robots-parse",
   "author": {
     "name": "b4dnewz",
@@ -11,40 +11,33 @@
   "files": [
     "lib"
   ],
-  "main": "lib/index.js",
-  "license": "Apache-2.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "license": "MIT",
+  "repository": "b4dnewz/robots-parse",
   "keywords": [
-    "cli-tool",
     "parser",
+    "robots-parser",
     "osint"
   ],
+  "scripts": {
+    "pretest": "npm run lint",
+    "lint": "tslint -p . --fix",
+    "test": "jest --coverage",
+    "build": "tsc"
+  },
   "dependencies": {
     "follow-redirects": "^1.7.0"
   },
   "devDependencies": {
-    "coveralls": "^3.0.3",
-    "eslint": "^5.15.1",
-    "jest": "^24.1.0",
-    "jest-cli": "^24.1.0"
-  },
-  "scripts": {
-    "pretest": "npm run lint",
-    "lint": "eslint . --fix",
-    "test": "jest --coverage"
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "es6": true,
-      "jest": true,
-      "node": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 6
-    }
-  },
-  "repository": "b4dnewz/robots-parse",
-  "jest": {
-    "testEnvironment": "node"
+    "@types/follow-redirects": "^1.5.0",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.6",
+    "coveralls": "^3.0.5",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
   }
 }
