@@ -56,10 +56,7 @@ export function parser(body: string) {
     if (patterns.allow.test(line)) {
       const matches = line.match(patterns.allow);
 
-      // Add element if not already in
-      if (!results.agents[lastAgent].allow.includes(matches[2])) {
-        results.agents[lastAgent].allow.push(matches[2]);
-      }
+      results.agents[lastAgent].allow.push(matches[2]);
 
       // Add element to the global array if not already in
       if (!results.allow.includes(matches[2])) {
@@ -71,10 +68,7 @@ export function parser(body: string) {
     if (patterns.disallow.test(line)) {
       const matches = line.match(patterns.disallow);
 
-      // Add element if not already in
-      if (!results.agents[lastAgent].disallow.includes(matches[2])) {
-        results.agents[lastAgent].disallow.push(matches[2]);
-      }
+      results.agents[lastAgent].disallow.push(matches[2]);
 
       // Add element to the global array if not already in
       if (!results.disallow.includes(matches[2])) {
@@ -85,10 +79,7 @@ export function parser(body: string) {
     // Check for sitemap rules
     if (patterns.sitemaps.test(line)) {
       const matches = line.match(patterns.sitemaps);
-      // Add element to the global array if not already in
-      if (!results.sitemaps.includes(matches[2])) {
-        results.sitemaps.push(matches[2]);
-      }
+      results.sitemaps.push(matches[2]);
     }
   });
 
