@@ -1,9 +1,9 @@
 const patterns = {
-  agents: /([Uu]ser-agent:) (.+)/,
-  allow: /([Aa]llow:) (\/.+)/,
-  disallow: /([Dd]isallow:) (\/.+)/,
-  host: /([Hh]ost:) (.+)/,
-  sitemaps: /([Ss]itemap:) (.+)/,
+  agents: /^([Uu]ser-agent:) (.+)$/,
+  allow: /^([Aa]llow:) (\/.+)$/,
+  disallow: /^([Dd]isallow:) (\/.+)$/,
+  host: /^([Hh]ost:) (.+)$/,
+  sitemaps: /^([Ss]itemap:) (.+)$/,
 };
 
 export interface ParserResult {
