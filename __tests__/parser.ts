@@ -1,45 +1,83 @@
-import * as assert from "assert";
-import * as fs from "fs";
-import * as path from "path";
 import {parser} from "../src/index";
 
-const testFile = fs.readFileSync(path.join(__dirname, "robots.txt"), "utf-8");
-
-describe("Parser Test Suite:", () => {
-  it("exports by default a function", () => {
-    assert.equal(typeof parser, "function", "it should export a function");
+describe("Parser", () => {
+  it("export is a function", () => {
+    expect(typeof parser).toBe("function");
   });
 
-  const result = parser(testFile);
+  it("parse and group allow definitions", () => {
+    const result = parser(`
+      User-agent: *
+      Allow: /humans.txt
 
-  it("extracts allow definitions", () => {
-    expect(result).toHaveProperty("allow");
-    expect(Array.isArray(result.allow)).toBe(true);
-    expect(result.allow).not.toHaveLength(0);
+      User-agent: duckduckbot
+      Allow: /legal/terms
+      Allow: /safetycheck/
+    `);
+    expect(result.allow).toEqual([
+      "/humans.txt",
+      "/legal/terms",
+      "/safetycheck/",
+    ]);
   });
 
-  it("extracts disallow definitions", () => {
-    expect(result).toHaveProperty("disallow");
-    expect(Array.isArray(result.disallow)).toBe(true);
-    expect(result.disallow).not.toHaveLength(0);
+  it("parse and group disallow definitions", () => {
+    const result = parser(`
+      User-agent: Googlebot
+      Disallow: /archive/
+      Disallow: /search
+
+      User-agent: msnbot
+      Disallow: /downloads/
+    `);
+    expect(result.disallow).toEqual([
+      "/archive/",
+      "/search",
+      "/downloads/",
+    ]);
   });
 
   it("extracts agents definitions", () => {
-    expect(result).toHaveProperty("agents");
-    expect(typeof result.agents).toBe("object");
-    expect(result.agents).not.toBe({});
-    expect(result.agents.duckduckbot).toBeDefined();
+    const result = parser(`
+      User-agent: Bingbot
+      Allow: /safetycheck/
+      Disallow: /archive/
+
+      User-agent: Twitterbot
+      Allow: /legal/terms
+      Allow: /safetycheck/
+      Disallow: /archive/
+      Disallow: /search
+    `);
+    expect(result.agents).toEqual({
+      Bingbot: {
+        allow: ["/safetycheck/"],
+        disallow: ["/archive/"],
+      },
+      Twitterbot: {
+        allow: ["/legal/terms", "/safetycheck/"],
+        disallow: ["/archive/", "/search"],
+      },
+    });
   });
 
   it("extracts sitemaps definitions", () => {
-    expect(result).toHaveProperty("sitemaps");
-    expect(Array.isArray(result.sitemaps)).toBe(true);
-    expect(result.sitemaps).not.toHaveLength(0);
+    const result = parser(`
+      Sitemap: http://www.domain.com/sitemap-products.xml
+      Sitemap: http://www.domain.com/sitemap-categories.xml
+      Sitemap: http://www.domain.com/sitemap-blogposts.xml
+    `);
+    expect(result.sitemaps).toEqual([
+      "http://www.domain.com/sitemap-products.xml",
+      "http://www.domain.com/sitemap-categories.xml",
+      "http://www.domain.com/sitemap-blogposts.xml",
+    ]);
   });
 
   it("extracts host definitions", () => {
-    expect(result).toHaveProperty("host");
-    expect(typeof result.host).toBe("string");
-    expect(result.host).toBe("example.com");
+    const result = parser(`
+      host: example.com
+    `);
+    expect(result.host).toEqual("example.com");
   });
 });

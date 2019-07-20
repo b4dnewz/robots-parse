@@ -1,41 +1,55 @@
+import {default as createServer, ExpressTestServer} from "@b4dnewz/express-test-server";
 import robotsParse from "../src/index";
 
 describe("robotsParse test suite", () => {
+  let server: ExpressTestServer;
+
+  beforeAll(async () => {
+    server = await createServer({
+      certificate: true,
+    });
+    server.get("/robots.txt", () => `
+      User-agent: *
+      Disallow: /
+    `);
+  });
+
+  afterAll(async () => {
+    await server.close();
+  });
+
   it("exports by default a function", () => {
     expect(typeof robotsParse).toBe("function");
   });
 
-  it("get and parse a remote robots file", (done) => {
-    robotsParse("www.w3.org", (err, results) => {
+  it("support callbacks", (done) => {
+    robotsParse(server.url, (err, res) => {
       expect(err).toBeNull();
-      expect(typeof results).toEqual("object");
+      expect(res).toBeDefined();
+      expect(typeof res).toEqual("object");
       done();
     });
   });
 
-  it("return promise if callback not specified", (done) => {
-    robotsParse("www.w3.org")
-      .then((res) => {
-        expect(typeof res).toEqual("object");
-        done();
-      })
-      .catch(done);
+  it("support promises", async () => {
+    const res = await robotsParse(server.url);
+    expect(res).toBeDefined();
+    expect(typeof res).toEqual("object");
   });
 
-  it("support https protocol", (done) => {
-    robotsParse("https://www.w3.org")
-      .then((res) => {
-        expect(typeof res).toEqual("object");
-        done();
-      })
-      .catch(done);
+  it("support https protocol", async () => {
+    const res = await robotsParse(server.sslUrl);
+    expect(res).toBeDefined();
+    expect(typeof res).toEqual("object");
   });
 
-  it("return error when request fails", (done) => {
-    robotsParse("example.com", (err, res) => {
-      expect(err).toBeDefined();
-      expect(res).not.toBeDefined();
-      done();
+  it("rejects when request fails", async () => {
+    const serv = await createServer();
+    serv.get("/robots.txt", (req, res) => {
+      res.status(404).send("Not found");
+    });
+    await expect(robotsParse(serv.url)).rejects.toMatchObject({
+      message: "Not Found",
     });
   });
 });
