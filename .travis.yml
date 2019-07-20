@@ -2,4 +2,12 @@ language: node_js
 node_js:
   - "node"
   - "lts/*"
+
+install:
+- npm ci
+# keep the npm cache around to speed up installs
+cache:
+  directories:
+  - "$HOME/.npm"
+
 after_script: 'cat ./coverage/lcov.info | coveralls'
