@@ -36,6 +36,8 @@ export function parser(body: string) {
 
   // Loop through lines and check for patterns
   lines.forEach((line) => {
+    line = line.trim();
+
     // Check for agent rules
     if (patterns.agents.test(line)) {
       const matches = line.match(patterns.agents);

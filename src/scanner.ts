@@ -15,7 +15,9 @@ export function scanner(domain: string, callback: CallbackFunction = () => {}): 
     const method = parsedDomain.protocol === "https:" ? "https" : "http";
     const robotsUrl = url.resolve(parsedDomain.href, "robots.txt");
 
-    request[method].get(robotsUrl, (res) => {
+    // Shut the compiler about incorrect method interface
+    // @ts-ignore
+    request[method].get(robotsUrl, { rejectUnauthorized: false }, (res) => {
       if (res.statusCode !== 200) {
         res.destroy(new Error(res.statusMessage));
         return;
