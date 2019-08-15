@@ -29,7 +29,7 @@ export function parser(body: string) {
   };
 
   // Extract lines from body response
-  const lines = body.match(/[^\r\n]+/g);
+  const lines = body.match(/[^\r\n]+/g) || [];
 
   // Default agent
   let lastAgent = "all";
