@@ -19,7 +19,7 @@ export function scanner(domain: string, callback: CallbackFunction = () => {}): 
     // @ts-ignore
     request[method].get(robotsUrl, { rejectUnauthorized: false }, (res) => {
       if (res.statusCode !== 200) {
-        res.destroy(new Error(res.statusMessage));
+        res.destroy(new Error(res.statusMessage || "Request error"));
         return;
       }
 
