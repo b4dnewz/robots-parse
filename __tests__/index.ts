@@ -1,4 +1,6 @@
 import {default as createServer, ExpressTestServer} from "@b4dnewz/express-test-server";
+import nock from "nock";
+
 import robotsParse from "../src/index";
 
 describe("robotsParse test suite", () => {
@@ -51,5 +53,14 @@ describe("robotsParse test suite", () => {
     await expect(robotsParse(serv.url)).rejects.toMatchObject({
       message: "Not Found",
     });
+    serv.close();
+  });
+
+  it("add the protocol if missing", async () => {
+    nock("http://example.com")
+      .get("/robots.txt")
+      .reply(200);
+
+    await expect(robotsParse("example.com")).resolves.toBeDefined();
   });
 });

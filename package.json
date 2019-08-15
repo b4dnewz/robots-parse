@@ -29,7 +29,9 @@
     "build": "tsc"
   },
   "dependencies": {
-    "follow-redirects": "^1.7.0"
+    "@types/nock": "^10.0.3",
+    "follow-redirects": "^1.7.0",
+    "nock": "^10.0.6"
   },
   "devDependencies": {
     "@b4dnewz/express-test-server": "^0.1.0",
